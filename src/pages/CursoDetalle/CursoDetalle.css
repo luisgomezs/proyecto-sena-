@@ -1,0 +1,281 @@
+body {
+  background-color: #f0f4f8; /* Tono de azul más suave */
+  font-family: "Inter", system-ui, sans-serif;
+  color: #1f2937;
+}
+
+/* Contenedor general */
+.curso-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+
+/* Header */
+.curso-header {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 15px;
+}
+
+/* CAMBIO: Corregido para coincidir con tu JSX */
+.btn--volver {
+  text-decoration: none;
+  color: #1d4ed8;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.btn--volver:hover {
+  color: #0c3ab1;
+}
+
+/* Tarjeta principal */
+.curso-card-detalle {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* Parte superior */
+.curso-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.curso-title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.curso-titulo {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.curso-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: white;
+  font-weight: 500;
+}
+
+.badge--black { background-color: #111827; }
+.badge--green { background-color: #16a34a; }
+.badge--gray { background-color: #6b7280; color: #fff; }
+
+/* Imagen opcional */
+.curso-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Descripción */
+.curso-descripcion {
+  margin-top: 16px;
+  font-size: 1rem;
+  color: #374151;
+  line-height: 1.6;
+}
+
+/* Datos (info en columnas) */
+.curso-datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+  text-align: center;
+}
+
+.dato-item {
+  background: #f9fafb;
+  border: 1px solid #f3f4f6;
+  border-radius: 10px;
+  padding: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dato-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+}
+
+/* CAMBIO: .icon es el texto ("Inscritos", etc.), 1.5rem era muy grande */
+.dato-item .icon {
+  display: block;
+  font-size: 0.9rem; /* Reducido */
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+.dato-item strong {
+  font-size: 1.1rem;
+}
+
+/* ========================================= */
+/* === FIX #1: BOTONES DE DOCUMENTOS === */
+/* ========================================= */
+.curso-documentos {
+  margin-top: 20px;
+}
+
+/* Estilos para "Ver Documento" y "Descargar" (basado en tu .btn-outline) */
+.btn--view,
+.btn--download {
+  background: transparent;
+  color: #111827;
+  border: 1px solid #d1d5db;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+.btn--view:hover,
+.btn--download:hover {
+  background: #f3f4f6;
+}
+
+
+/* ========================================= */
+/* === FIX #2: BARRA DE PROGRESO === */
+/* ========================================= */
+.progreso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.progress-bar {
+  flex-grow: 1; /* Hace que la barra ocupe el espacio disponible */
+  height: 24px; /* Un poco más alta para que quepa el texto */
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.progress-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  width: 0%;
+  transition: width 0.35s ease;
+
+  /* --- AÑADIDO: Estilos para el texto DENTRO de la barra --- */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Este ya no lo necesitas si pones el texto DENTRO de la barra */
+.progress-label {
+  display: none; 
+}
+
+
+/* ========================================= */
+/* === FIX #3: BOTONES DEL FOOTER === */
+/* ========================================= */
+.curso-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb; /* Línea separadora */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.botones {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* --- Base para los botones principales --- */
+.btn-ver,
+.btn-eval {
+  color: white;
+  border: none;
+  padding: 10px 18px; /* Un poco más grandes */
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+/* --- Botón VER VIDEO (Verde) --- */
+.btn-ver {
+  background-color: #16a34a; /* Verde */
+}
+.btn-ver:hover {
+  background-color: #15803d;
+}
+/* .btn-ver:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.7;
+} */
+
+/* --- Botón EVALUACIÓN (Estado Habilitado) --- */
+.btn-eval {
+  background-color: #1d4ed8; /* Azul (para diferenciarlo del video) */
+  color: white;
+}
+.btn-eval:hover {
+  background-color: #0c3ab1;
+}
+
+/* --- Botón EVALUACIÓN (Estado Deshabilitado) --- */
+/* Esto anula el estilo anterior cuando el botón tiene el atributo 'disabled' */
+/* ========================================= */
+/* === FIX FINAL: BOTÓN EVALUACIÓN DESHABILITADO === */
+/* ========================================= */
+
+.btn-eval:disabled,
+.btn-eval[disabled] {
+  background-color: #9ca3af !important;   /* Gris claro */
+  color: #e5e7eb !important;
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+  pointer-events: none;                   /* Evita que haga hover */
+}
+
+.btn-eval:disabled:hover,
+.btn-eval[disabled]:hover {
+  background-color: #9ca3af !important;
+}
+
+/* Opcional: efecto más bonito cuando está habilitado (100%) */
+.btn-eval:not(:disabled) {
+  background-color: #1d4ed8;
+}
+.btn-eval:not(:disabled):hover {
+  background-color: #1e40af;
+}
+
+/* Bonus: también arreglamos el botón de video por si acaso */
+.btn-ver:disabled,
+.btn-ver[disabled] {
+  background-color: #9ca3af !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}

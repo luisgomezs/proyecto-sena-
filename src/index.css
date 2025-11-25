@@ -1,0 +1,332 @@
+/* 🌐 Estilos globales */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #bde7f2;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./assets/infobank-logo.png'); /* 👈 Ruta del logo */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 220px; /* Tamaño del logo como marca de agua */
+  position: relative;
+}
+
+/* 🔹 Sombra y fondo blanco del login */
+.login-card {
+  background-color: rgba(255, 255, 255, 0.96);
+  padding: 36px 40px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  width: 350px;
+  text-align: center;
+  animation: fadeIn 0.4s ease-in-out;
+  z-index: 2;
+}
+
+/* 🏦 Logo superior */
+.login-logo {
+  width: 120px;
+  margin-bottom: 18px;
+}
+
+/* ✍️ Título */
+.login-card h2 {
+  margin-bottom: 20px;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+/* ✏️ Inputs */
+.login-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  background: #f9fafb;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.login-card input:focus {
+  border-color: #007bff;
+  background: #fff;
+}
+
+/* 🔘 Botón */
+.login-card button {
+  width: 100%;
+  padding: 11px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.login-card button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* 📩 Enlace de recuperación */
+.login-card a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-card a:hover {
+  text-decoration: underline;
+}
+
+/* 📩 Mensaje de texto */
+.login-card p {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #374151;
+}
+
+/* ✨ Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== 📱 Responsive ===== */
+@media (max-width: 500px) {
+  body {
+    background-size: 150px;
+  }
+
+  .login-card {
+    width: 90%;
+    padding: 28px 20px;
+  }
+}
+/* Estilos base (modo claro) */
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: sans-serif; /* Asegúrate de definir una fuente */
+  margin: 0; /* Reiniciar margen por defecto */
+}
+
+/* --- ESTILOS MODO OSCURO --- */
+body.dark {
+  background-color: #121212; /* Fondo oscuro */
+  color: #e0e0e0; /* Texto claro */
+}
+
+/* Títulos generales */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6 {
+  color: #ffffff; /* Títulos más blancos */
+}
+
+/* Enlaces generales */
+body.dark a {
+  color: #bb86fc; /* Color de enlace para modo oscuro */
+}
+body.dark a:hover {
+  color: #d1b1ff;
+}
+
+/* Formularios generales */
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #555; /* Borde más claro en oscuro */
+}
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #888; /* Placeholder más claro */
+}
+body.dark select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23AAAAAA%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right .7em top 50%;
+  background-size: .65em auto;
+  padding-right: 2em;
+}
+
+
+/* --- !! ESTILOS ESPECÍFICOS PARA COMPONENTES !! --- */
+
+/* --- Dashboard Normal --- */
+/* ✅ CORRECCIÓN: Estilo específico para el contenedor con clase .dash */
+body.dark .dash {
+  background-color: #121212;
+}
+/* Header del Dashboard (Reemplaza .dashboard-header) */
+body.dark .dashboard-header { background-color: #1e1e1e; border-bottom-color: #333;}
+body.dark .dashboard-header h1, body.dark .dashboard-header p { color: #e0e0e0; }
+body.dark .dashboard-header .user-menu a, body.dark .dashboard-header .user-menu button { color: #bb86fc; background: none; border: none; }
+/* Tarjetas principales del Dashboard (Reemplaza .card-dashboard) */
+body.dark .card-dashboard { background-color: #1e1e1e; border: 1px solid #333; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); } /* Ajustado color */
+body.dark .card-dashboard h3 { color: #ffffff; } /* Ajustado color */
+body.dark .card-dashboard p { color: #b0b0b0; } /* Ajustado color */
+/* Botones DENTRO de las tarjetas del Dashboard */
+body.dark .card-dashboard .btn-ver-cursos { background-color: #3f51b5; color: white;}
+body.dark .card-dashboard .btn-ver-noticias { background-color: #1e8e3e; color: white;}
+body.dark .card-dashboard .btn-ver-muro { background-color: #6a1b9a; color: white;}
+body.dark .card-dashboard .btn-configurar { background-color: #d84315; color: white;}
+/* Tarjeta "Soporte Técnico" (Reemplaza .support-card) */
+body.dark .support-card { background-color: #1e1e1e; border: 1px solid #333; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
+body.dark .support-card a, body.dark .support-card button { color: #bb86fc; }
+
+/* --- ✅ Página de Cursos --- */
+/* Contenedor principal de Cursos */
+body.dark .cursos-container { background-color: #121212; }
+/* Header de Cursos */
+body.dark .cursos-header { background-color: #1e1e1e; border-bottom-color: #333;}
+body.dark .cursos-header .volver { color: #bb86fc; } /* Enlace "Volver" */
+/* Título y subtítulo */
+body.dark .cursos-title { color: #ffffff; }
+body.dark .cursos-subtitle { color: #b0b0b0; }
+/* Tarjetas de Curso */
+body.dark .curso-card {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+}
+body.dark .curso-card h4 { color: #eee; } /* Título del curso */
+body.dark .curso-card .curso-desc { color: #bbb; } /* Descripción */
+body.dark .curso-card .curso-info p { color: #bbb; } /* Info: inscritos, fecha, etc */
+body.dark .curso-card .curso-info strong { color: #ddd; } /* Números en negrita */
+body.dark .curso-card .curso-footer small { color: #aaa; } /* Texto "Creado por..." */
+body.dark .curso-card .badge { background-color: #444; color: #ccc; } /* Badges genéricos */
+body.dark .curso-card .badge-activo { background-color: #555; }
+body.dark .curso-card .badge-inscrito { background-color: #1e8e3e; color: white; }
+/* Botones dentro de la tarjeta de curso */
+body.dark .curso-card .btn-inscribirse { background-color: #bb86fc; color: #121212; }
+body.dark .curso-card .btn-ver { background-color: #03dac6; color: #121212; }
+body.dark .curso-card .btn-evaluacion { background-color: #444; color: #888; border-color: #666; cursor: not-allowed; }
+body.dark .curso-card .btn-cancelar { background-color: #cf6679; color: #121212; }
+body.dark .no-cursos { color: #aaa; } /* Mensaje "No hay cursos" */
+
+/* --- ✅ Página de Noticias --- */
+/* Contenedor principal (usa la clase del JSX) */
+body.dark .pagina-noticias-pro { background-color: #121212; }
+/* Header de Noticias */
+body.dark .noticias-header-pro { background-color: #1e1e1e; border-bottom-color: #333;}
+body.dark .noticias-header-pro .btn-volver { color: #bb86fc; }
+/* Barra de búsqueda y filtros */
+body.dark .search-bar { background-color: #333; color: #eee; border-color: #555; }
+body.dark .category-btn { background-color: #333; color: #ccc; border-color: #555; }
+body.dark .category-btn.active { background-color: #bb86fc; color: #121212; border-color: #bb86fc; }
+/* Tarjetas de Noticia */
+body.dark .noticia-card-pro {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+}
+body.dark .noticia-card-pro .card-category-tag { background-color: #e4e4e5; color: #eee; } /* Morado oscuro */
+body.dark .noticia-card-pro .card-title-pro { color: #eee; }
+body.dark .noticia-card-pro .card-description-pro { color: #bbb; }
+body.dark .noticia-card-pro .card-meta-pro span { color: #aaa; }
+body.dark .noticia-card-pro .card-meta-pro svg { stroke: #aaa; } /* Color de iconos */
+body.dark .noticia-card-pro .card-image img { filter: brightness(0.8); }
+body.dark .no-noticias { color: #aaa; } /* Mensaje "No hay noticias" */
+
+/* --- ✅ Página de Muro Informativo --- */
+/* Contenedor principal (usa la clase del JSX) */
+body.dark .muro { background-color: #121212; }
+/* Topbar del Muro */
+body.dark .muro__topbar { background-color: #1e1e1e; border-bottom-color: #333;}
+body.dark .muro__back { color: #bb86fc; } /* Enlace Volver */
+body.dark .muro__brand { filter: brightness(0) invert(1); } /* Invierte logo si es oscuro */
+/* Línea divisora */
+body.dark .muro__bar { background-color: #cacaf0; } /* Usa color de acento */
+/* Contenedor principal */
+body.dark .muro__container { /* Si tiene fondo propio */ background-color: #121212; }
+/* Sidebar */
+body.dark .muro__sidebar { background-color: #1e1e1e; } /* Fondo del sidebar */
+body.dark .muro__sidebar h3 { color: #eee; border-bottom-color: #444; }
+body.dark .muro__cat { background-color: #333; color: #ccc; } /* Botones categoría */
+body.dark .muro__cat:hover { background-color: #444; }
+body.dark .muro__cat.active { background-color: #bb86fc; color: #121212; }
+body.dark .muro__stats { border-top-color: #444; } /* Estadísticas */
+body.dark .muro__stats p { color: #bbb; }
+body.dark .muro__stats-value { color: #eee; }
+/* Feed y Tarjetas del Muro */
+body.dark .muro__search input { background-color: #333; color: #eee; border-color: #555; }
+body.dark .muro__card {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+}
+body.dark .muro__card .muro__avatar { background-color: #3700b3; color: #eee; } /* Avatar por defecto */
+body.dark .muro__card .muro__author { color: #eee; }
+body.dark .muro__card .muro__date { color: #aaa; }
+body.dark .muro__card .muro__tag { background-color: #444; color: #ccc; }
+body.dark .muro__card .muro__card-title { color: #eee; }
+body.dark .muro__card .muro__card-body { color: #bbb; }
+body.dark .muro__empty { color: #aaa; } /* Mensaje "No hay publicaciones" */
+
+
+/* --- Admin Dashboard --- */
+body.dark .admin { background-color: #181818; }
+body.dark .admin__header { background-color: #212121; border-bottom-color: #444 !important; }
+body.dark .admin__header h1 { color: #fff; }
+body.dark .btn--logout { background-color: #555; color: #eee; }
+body.dark .stat { background-color: #2a2a2a; border: 1px solid #444; }
+body.dark .stat h3 { color: #eee; }
+body.dark .stat p, body.dark .stat span { color: #bbb; }
+body.dark .tab-bar { background-color: #212121; border-bottom-color: #444; }
+body.dark .tab-btn { color: #aaa; background: none; border: none; } /* Asegurar fondo transparente */
+body.dark .tab-btn:hover { background-color: #333; color: #eee; }
+body.dark .tab-btn.active { color: #fff; border-bottom: 2px solid #bb86fc; background-color: transparent; } /* Solo borde inferior */
+body.dark .tab-content { /* Sin fondo específico aquí */ }
+body.dark .course-card, body.dark .user-card, body.dark .message-card, body.dark .notification-card, body.dark .noticia-item-admin, body.dark .register-card, body.dark .add-course, body.dark .noticias-tab, body.dark .muro-tab { background-color: #2a2a2a; border: 1px solid #444; }
+body.dark .course-card h3, body.dark .user-card h3 { color: #eee; }
+body.dark .course-card p, body.dark .user-card p, body.dark .message-card p { color: #bbb; }
+body.dark .form input, body.dark .form textarea, body.dark .form select, body.dark .register-card input, body.dark .register-card select { background-color: #3c3c3c; color: #eee; border-color: #666; }
+body.dark .form label, body.dark .register-card label { color: #ccc; }
+body.dark .btn--save, body.dark .btn--primary { background-color: #bb86fc; color: #121212; border: none; }
+body.dark .btn--cancel, body.dark .btn--secondary { background-color: #555; color: #eee; border-color: #777; }
+body.dark .btn--delete { background-color: #cf6679; color: #121212; border: none; }
+body.dark .btn--edit { background-color: #03dac6; color: #121212; border: none; }
+body.dark .btn--block { background-color: #ffb74d; color: #121212; border: none; }
+body.dark .btn--activate { background-color: #81c784; color: #121212; border: none; }
+body.dark .modal-backdrop { background-color: rgba(0, 0, 0, 0.7); }
+body.dark .modal-content { background-color: #2a2a2a; border-color: #444; }
+
+
+/* --- Clases genéricas --- */
+body.dark .card {
+  background-color: #1e1e1e;
+  border-color: #333;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+body.dark .table { border-color: #444; }
+body.dark .table th { background-color: #2a2a2a; color: #eee; border-color: #444; }
+body.dark .table td { border-color: #444; color: #ccc; }
+
+
+/* --- FIN ESTILOS MODO OSCURO --- */
+
+/* Añade aquí el resto de tus estilos globales */
+

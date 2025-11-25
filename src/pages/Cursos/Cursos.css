@@ -1,0 +1,211 @@
+/* src/Cursos.css */
+.cursos-container {
+  background: #f8f9fb;
+  min-height: 100vh;
+  padding: 32px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.cursos-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 2px solid #dbe3f0;
+  padding-bottom: 8px;
+  margin-bottom: 24px;
+}
+
+.volver {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 600;
+}
+
+.cursos-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.cursos-subtitle {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.cursos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.curso-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.curso-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.curso-header h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.badge {
+  background: #111827;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.curso-desc {
+  margin: 8px 0 16px;
+  color: #4b5563;
+  line-height: 1.4;
+}
+
+.curso-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  color: #374151;
+  font-size: 14px;
+}
+
+.curso-info p {
+  margin: 0;
+}
+
+.curso-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn-inscribirse {
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-inscribirse:hover {
+  background: #1e40af;
+}
+.curso-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border: 1px solid #e5e7eb;
+  transition: all 0.25s ease;
+}
+.curso-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.curso-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.badges {
+  display: flex;
+  gap: 6px;
+}
+.badge {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #fff;
+}
+.badge-activo {
+  background: #111827;
+}
+.badge-inscrito {
+  background: #16a34a;
+}
+
+.curso-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 14px;
+  color: #374151;
+  margin-top: 10px;
+}
+
+.curso-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.btn-inscribirse {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-inscribirse:hover {
+  background: #1d4ed8;
+}
+
+.botones-inscrito {
+  display: flex;
+  gap: 10px;
+}
+.btn-ver {
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-evaluacion {
+  background: #e5e7eb;
+  color: #6b7280;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+.btn-cancelar {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-cancelar:hover {
+  background: #dc2626;
+}
+/* Agrega esto al final de Cursos.css */
+.badge-terminado {
+  background-color: #27ae60; /* Verde éxito */
+  color: white;
+}

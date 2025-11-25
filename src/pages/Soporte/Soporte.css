@@ -1,0 +1,346 @@
+/* ======= 🖌 ESTILOS GENERALES (BODY) ======= */
+body {
+  background-color: #f9fafb;
+  transition: background-color 0.3s ease;
+}
+
+/* 🎨 CONTENEDOR PRINCIPAL */
+.soporte-container {
+  /* max-width: 1000px; <-- ELIMINADO */
+  /* margin: 0 auto;     <-- ELIMINADO */
+  padding: 20px;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  /* Hacemos que tenga al menos el alto de la pantalla */
+  min-height: 100vh; 
+}
+
+/* 📊 CABECERA */
+.soporte-container h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 5px;
+}
+
+.soporte-container p {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* ======= TARJETAS DE ESTADO ======= */
+.soporte-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.stat-pendiente,
+.stat-respondido {
+  text-align: center;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+.stat-pendiente {
+  background: #fef9c3;
+  border: 1px solid #fde68a;
+}
+
+.stat-respondido {
+  background: #d1fae5;
+  border: 1px solid #a7f3d0;
+}
+
+.stat-pendiente h4,
+.stat-respondido h4 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #1f2937;
+}
+
+.stat-pendiente p,
+.stat-respondido p {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ======= FORMULARIO ======= */
+.form-soporte {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.form-soporte label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #111827;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-soporte input,
+.form-soporte textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 14px;
+  background: #f9fafb;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.form-soporte input:focus,
+.form-soporte textarea:focus {
+  border-color: #2563eb;
+  background: #fff;
+}
+
+/* ======= BOTÓN ======= */
+.btn-enviar {
+  width: 100%;
+  background-color: #16a34a;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-enviar:hover {
+  background-color: #15803d;
+  transform: translateY(-2px);
+}
+
+/* ======= HISTORIAL ======= */
+.msg-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.msg-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.msg-card h4 {
+  font-size: 16px;
+  color: #1f2937;
+  margin-bottom: 6px;
+}
+
+.msg-card p {
+  color: #374151;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.msg-card small {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Estado */
+.amarillo {
+  color: #ca8a04;
+  font-weight: 600;
+}
+
+.verde {
+  color: #15803d;
+  font-weight: 600;
+}
+
+/* ======= RESPUESTA DEL ADMIN ======= */
+.respuesta {
+  background: #f0fdf4;
+  border-left: 4px solid #22c55e;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+.respuesta p {
+  font-size: 14px;
+  color: #065f46;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 768px) {
+  .soporte-container {
+    padding: 14px;
+    /* Quita el borde redondeado en móvil para que se vea 100% */
+    border-radius: 0;
+  }
+
+  .form-soporte {
+    padding: 14px;
+  }
+
+  .btn-enviar {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .msg-card h4 {
+    font-size: 15px;
+  }
+
+  .msg-card p {
+    font-size: 13px;
+  }
+}
+/* ======= BOTÓN VOLVER ======= */
+.volver-inicio {
+  margin-bottom: 14px;
+}
+
+.btn-volver {
+  text-decoration: none;
+  background: #2563eb;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.btn-volver:hover {
+  background: #1e40af;
+}
+
+/* ======= 🌙 MODO OSCURO ======= */
+@media (prefers-color-scheme: dark) {
+
+  /* 🎨 FONDO Y CONTENEDOR PRINCIPAL */
+  body {
+    background-color: #1f2937;
+  }
+
+  .soporte-container {
+    background-color: #1f2937;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 1px solid #374151;
+  }
+
+  /* 📊 CABECERA Y TEXTO GENERAL */
+  .soporte-container h2 {
+    color: #f9fafb;
+  }
+
+  .soporte-container p {
+    color: #9ca3af;
+  }
+
+  /* ======= TARJETAS DE ESTADO ======= */
+  .stat-pendiente {
+    background: #422006;
+    border: 1px solid #78350f;
+  }
+
+  .stat-respondido {
+    background: #064e3b;
+    border: 1px solid #047857;
+  }
+
+  .stat-pendiente h4,
+  .stat-respondido h4 {
+    color: #f9fafb;
+  }
+
+  .stat-pendiente p,
+  .stat-respondido p {
+    color: #e5e7eb;
+  }
+
+  /* ======= FORMULARIO ======= */
+  .form-soporte {
+    background: #1f2937;
+    border: 1px solid #374151;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .form-soporte label {
+    color: #e5e7eb;
+  }
+
+  .form-soporte input,
+  .form-soporte textarea {
+    background: #374151;
+    border: 1px solid #4b5563;
+    color: #f9fafb;
+  }
+
+  .form-soporte input:focus,
+  .form-soporte textarea:focus {
+    border-color: #2563eb;
+    background: #1f2937;
+  }
+
+  /* ======= HISTORIAL ======= */
+  .msg-card {
+    background: #374151;
+    border: 1px solid #4b5563;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .msg-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    border-color: #525f73;
+  }
+
+  .msg-card h4 {
+    color: #f9fafb;
+  }
+
+  .msg-card p {
+    color: #d1d5db;
+  }
+
+  .msg-card small {
+    color: #9ca3af;
+  }
+
+  /* Estado */
+  .amarillo {
+    color: #facc15;
+  }
+
+  .verde {
+    color: #4ade80;
+  }
+
+  /* ======= RESPUESTA DEL ADMIN ======= */
+  .respuesta {
+    background: #064e3b;
+    border-left: 4px solid #22c55e;
+  }
+
+  .respuesta p {
+    color: #a7f3d0;
+  }
+
+}

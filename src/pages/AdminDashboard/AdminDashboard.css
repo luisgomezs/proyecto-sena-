@@ -1,0 +1,953 @@
+/* ===== GENERAL ===== */
+.admin {
+  background: #f5f6f8;
+  min-height: 100vh;
+  padding: 20px 32px;
+  font-family: "Segoe UI", sans-serif;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.admin__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.admin__header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  color: #111827;
+  transition: color 0.3s ease;
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+  font-size: 14px;
+}
+
+/* ===== LOGOUT ===== */
+.btn--logout {
+  background: #ef4444;
+  color: white;
+}
+.btn--logout:hover {
+  background: #dc2626;
+}
+
+/* ===== STATS ===== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.stat__icon {
+  font-size: 22px;
+  background: #f1f5f9;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.stat__value {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.stat h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 4px;
+}
+
+.stat span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ===== STAT COLORS ===== */
+.stat--blue .stat__icon {
+  background: #e0edff;
+  color: #2563eb;
+}
+.stat--green .stat__icon {
+  background: #dcfce7;
+  color: #16a34a;
+}
+.stat--purple .stat__icon {
+  background: #ede9fe;
+  color: #8b5cf6;
+}
+.stat--orange .stat__icon {
+  background: #fff7ed;
+  color: #f97316;
+}
+
+/* ===== TABS ===== */
+.tab-bar {
+  display: flex;
+  justify-content: space-between;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  padding: 6px;
+  margin: 20px 0;
+  transition: background 0.3s ease;
+}
+
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  padding: 10px 0;
+  font-weight: 600;
+  font-size: 14px;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.tab-btn.active {
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== CURSOS ===== */
+.courses,
+.users {
+  background: white;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+/* Contenedor de acciones */
+.course-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end; /* o flex-start, según prefieras */
+}
+
+/* Botón base */
+.course-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+}
+
+/* Botón Editar - Verde */
+.course-actions button:first-child {
+  background-color: #10b981;
+  color: white;
+}
+
+.course-actions button:first-child:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.25);
+}
+
+/* Botón Eliminar - Rojo */
+.course-actions button:last-child {
+  background-color: #ef4444;
+  color: white;
+}
+
+.course-actions button:last-child:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.25);
+}
+
+/* Efecto activo (opcional) */
+.course-actions button:active {
+  transform: translateY(0);
+}
+
+/* Responsive: apilar en móviles */
+@media (max-width: 480px) {
+  .course-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .course-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.course-card,
+.user-card {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.25s ease;
+}
+
+.course-card:hover,
+.user-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+}
+
+.badge {
+  background: #111827;
+  color: white;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  margin-left: 6px;
+}
+
+/* ===== FORMULARIOS ===== */
+.add-course,
+.user-form {
+  background: #f9fafb;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 20px;
+  border: 1px solid #e5e7eb;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.user-form h3,
+.add-course h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #111827;
+}
+
+.form input,
+.form textarea,
+.user-form input,
+.user-form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  margin-bottom: 10px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.form button,
+.user-form button {
+  width: 100%;
+  padding: 10px;
+}
+
+.btn--save {
+  background: #2563eb;
+  color: white;
+}
+.btn--save:hover {
+  background: #1d4ed8;
+}
+
+.btn--edit,
+.btn--add {
+  background: #22c55e;
+  color: white;
+}
+.btn--edit:hover,
+.btn--add:hover {
+  background: #16a34a;
+}
+
+.btn--delete {
+  background: #f97316;
+  color: white;
+}
+.btn--delete:hover {
+  background: #ea580c;
+}
+
+.btn--block {
+  background: #dc2626;
+  color: white;
+}
+.btn--block:hover {
+  background: #b91c1c;
+}
+
+/* ===== ANIMACIÓN ===== */
+.tab-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tab-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .user-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .user-card div:last-child {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+  }
+}
+
+/* =========================================================
+   🌙 MODO OSCURO
+   ========================================================= */
+body.dark,
+.admin.dark {
+  background: #111827;
+  color: #e5e7eb;
+}
+
+.dark .admin__header h1 {
+  color: #f3f4f6;
+}
+
+.dark .tab-bar {
+  background: #1f2937;
+}
+
+.dark .tab-btn {
+  color: #d1d5db;
+}
+.dark .tab-btn.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+.dark .courses,
+.dark .users,
+.dark .user-form,
+.dark .add-course {
+  background: #1e293b;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+.dark .course-card,
+.dark .user-card {
+  background: #111827;
+  border-color: #374151;
+}
+
+.dark input,
+.dark select,
+.dark textarea {
+  background: #1e293b;
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+.dark .btn--save {
+  background: #3b82f6;
+}
+.dark .btn--save:hover {
+  background: #2563eb;
+}
+
+.dark .btn--delete {
+  background: #f97316;
+}
+.dark .btn--delete:hover {
+  background: #ea580c;
+}
+
+.dark .btn--logout {
+  background: #ef4444;
+}
+.dark .btn--logout:hover {
+  background: #dc2626;
+}
+
+.dark .badge {
+  background: #2563eb;
+}
+/* ========= Registro de Empleado (Gestión de Usuarios) ========= */
+.register-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+  max-width: 680px;
+  margin: 0 0 18px 0;
+}
+
+.register-head h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+.reg-subtitle {
+  margin: 0 0 10px;
+  color: #6b7280;
+  font-size: 13.5px;
+}
+
+.form-row.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field { margin-bottom: 10px; }
+.field label {
+  display: block;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 6px;
+  font-size: 13.5px;
+}
+
+.input-with-icon {
+  position: relative;
+}
+.input-with-icon .icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  pointer-events: none;
+}
+.input-with-icon input,
+.input-with-icon select {
+  width: 100%;
+  padding: 10px 12px 10px 38px; /* espacio para icono */
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #f9fafb;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  font-size: 14px;
+}
+.input-with-icon input:focus,
+.input-with-icon select:focus {
+  border-color: #2563eb;
+  background: #fff;
+}
+
+.helper {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  color: #6b7280;
+  font-size: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 4px 0 10px;
+}
+
+/* Botón principal azul, a todo el ancho */
+.btn--primary {
+  width: 100%;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-weight: 700;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+}
+.btn--primary:hover {
+  background: #1d4ed8;
+}
+
+/* Modo oscuro (si usas .dark en body) */
+.dark .register-card {
+  background: #1e293b;
+  border-color: #374151;
+}
+.dark .register-head h3 { color: #e5e7eb; }
+.dark .reg-subtitle { color: #94a3b8; }
+.dark .input-with-icon input,
+.dark .input-with-icon select {
+  background: #111827;
+  border-color: #334155;
+  color: #e5e7eb;
+}
+.dark .input-with-icon input:focus,
+.dark .input-with-icon select:focus {
+  background: #0b1220;
+  border-color: #3b82f6;
+}
+.dark .helper {
+  background: #111827;
+  border-color: #334155;
+  color: #94a3b8;
+}
+/* Contador redondo en tabs */
+.badge--count{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:22px;
+  height:22px;
+  padding:0 6px;
+  margin-left:8px;
+  background:#ef4444;
+  color:#fff;
+  border-radius:9999px;
+  font-size:12px;
+  font-weight:700;
+}
+
+/* Tarjeta de mensaje / notificación */
+.msg-card{
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:12px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+.msg-top{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.msg-content{ margin:6px 0 10px; }
+.badge--warn{ background:#f59e0b; color:#111827; }
+
+/* Dark */
+.dark .msg-card{ background:#111827; border-color:#374151; }
+.dark .badge--count{ background:#ef4444; }
+.dark .badge--warn{ background:#f59e0b; color:#111827; }
+/* ----- Estilos para VistaChat ----- */
+
+.chat-container {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 60vh; /* O la altura que prefieras */
+}
+
+.chat-container h3 {
+  padding: 1rem;
+  margin: 0;
+  border-bottom: 1px solid #eee;
+  background-color: #f9f9f9;
+}
+
+.chat-messages {
+  flex-grow: 1; /* Ocupa el espacio disponible */
+  overflow-y: auto; /* Permite scroll */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.msg-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  max-width: 70%;
+  word-wrap: break-word; /* Evita que el texto se salga */
+}
+
+.msg-bubble small {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  display: block;
+  margin-top: 4px;
+}
+
+/* Mensaje de la otra persona */
+.msg-otro {
+  background-color: #f1f0f0;
+  align-self: flex-start; /* Se alinea a la izquierda */
+  border-bottom-left-radius: 4px;
+}
+
+/* Mensaje mío */
+.msg-mio {
+  background-color: #007bff; /* Un color primario (azul) */
+  color: white;
+  align-self: flex-end; /* Se alinea a la derecha */
+  border-bottom-right-radius: 4px;
+}
+
+.msg-mio small {
+  opacity: 0.9;
+}
+
+/* Input para escribir */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding: 0.75rem;
+  gap: 0.5rem;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.chat-input button {
+  /* Puedes usar tus clases 'btn' existentes */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 0 1.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.chat-input button:hover {
+  background-color: #0056b3;
+}
+/* --- CSS PARA LA LISTA DE CONVERSACIONES (INBOX) --- */
+
+.convo-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.convo-card:hover {
+  background-color: #f9f9f9;
+}
+
+.convo-info strong {
+  font-size: 1.1em;
+  color: #333;
+}
+.convo-info p {
+  margin: 4px 0;
+  color: #666;
+}
+.convo-info small {
+  color: #999;
+}
+
+.convo-status .badge {
+  /* Tus estilos de .badge .badge--warn */
+  /* Ejemplo: */
+  background-color: #f5a623;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+
+/* --- CSS PARA LA VISTA DE CHAT --- */
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.chat-header h2 {
+  margin: 0 0 0 15px;
+}
+
+.btn-volver {
+  /* Estilo simple para el botón de volver */
+  background: #f0f0f0;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f7f9fc; /* Fondo del chat */
+  border-radius: 8px;
+}
+
+/* Cada "ticket" original es un hilo de burbujas */
+.chat-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px dashed #ddd;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.chat-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+/* Burbuja del Empleado (Recibido) */
+.chat-bubble.received {
+  background-color: #ffffff; /* Blanco */
+  border: 1px solid #e0e0e0;
+  align-self: flex-start;
+  border-top-left-radius: 4px;
+}
+
+/* Burbuja del Admin (Enviado) */
+.chat-bubble.sent {
+  background-color: #dcf8c6; /* Verde WhatsApp */
+  align-self: flex-end;
+  border-top-right-radius: 4px;
+}
+
+.chat-bubble strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #0056b3; /* Asunto en azul */
+}
+
+.chat-bubble p {
+  margin: 0;
+  color: #333;
+}
+
+.chat-bubble small {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.75em;
+  color: #888;
+  text-align: right;
+}
+
+/* Acciones dentro de la burbuja */
+.bubble-actions {
+  margin-top: 10px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.bubble-actions button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.8em;
+  padding: 4px;
+}
+
+.bubble-actions button:hover {
+  text-decoration: underline;
+}
+
+.bubble-actions button:last-child {
+  color: #dc3545; /* Botón eliminar en rojo */
+}
+
+/* Acordeón de noticias en Admin */
+.news-list-acordeon {
+  margin-top: 20px;
+}
+
+.noticia-admin-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin: 12px 0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.noticia-admin-card:hover {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+}
+
+.noticia-header {
+  padding: 18px 20px;
+  background: #f8f9fa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.noticia-titulo-admin {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #1e293b;
+}
+
+.noticia-meta-admin {
+  display: flex;
+  gap: 16px;
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 6px;
+}
+
+.flecha-acordeon {
+  font-size: 1.4rem;
+  transition: transform 0.3s ease;
+  color: #666;
+}
+
+.noticia-contenido-admin {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.5s ease;
+  background: #fdfdff;
+}
+
+.noticia-admin-card.expandida .noticia-contenido-admin {
+  max-height: 800px;
+  padding: 20px;
+}
+
+.descripcion-completa {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #334155;
+  margin-bottom: 16px;
+}
+
+.imagen-noticia-expandida {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 16px 0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.acciones-expandida {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.acciones-expandida button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.tab-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 10px 0;
+  border-bottom: 2px solid #eee;
+}
+
+.tab-btn {
+  padding: 12px 18px;
+  background: #f8f9fa;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tab-btn.active {
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+}
+
+.tab-btn:hover {
+  background: #e5e7eb;
+}
+
+.tab-btn.active:hover {
+  background: #dc2626;
+}
+
+.badge--count {
+  background: #ef4444;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

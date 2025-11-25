@@ -1,0 +1,238 @@
+/* Contenedor general */
+.muro {
+  background: #f7f7f7;
+  min-height: 100vh;
+  padding: 16px 22px 32px;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* Topbar */
+.muro__topbar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+}
+.muro__back {
+  text-decoration: none;
+  color: #4f46e5;
+  font-weight: 600;
+}
+.muro__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: center;
+}
+.muro__title h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+.muro__brand {
+  width: 38px;
+  justify-self: end;
+}
+.muro__bar {
+  height: 4px;
+  background: #8b5cf6;
+  border-radius: 999px;
+  margin: 12px 0 18px;
+}
+
+/* Layout principal */
+.muro__container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 18px;
+}
+
+/* Sidebar */
+.muro__sidebar {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px;
+  height: fit-content;
+}
+.muro__sidebar h3 {
+  margin: 4px 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+.muro__cats {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.muro__cat {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 600;
+  color: #111827;
+}
+.muro__cat.active {
+  background: #0f172a;
+  color: #fff;
+}
+
+.muro__stats {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px;
+}
+.muro__stats-value {
+  margin-top: 8px;
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+}
+
+/* Feed */
+.muro__feed {
+  display: grid;
+  gap: 14px;
+}
+.muro__search input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: 14px;
+}
+.muro__empty {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  padding: 18px;
+  border-radius: 12px;
+  text-align: center;
+  color: #6b7280;
+}
+
+/* Cards */
+.muro__card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.muro__card-meta {
+  display: grid;
+  grid-template-columns: 38px 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+.muro__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ede9fe;
+  color: #6d28d9;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+.muro__author {
+  font-weight: 700;
+  color: #111827;
+}
+.muro__role {
+  background: #eef2ff;
+  color: #4338ca;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  margin-left: 8px;
+  font-weight: 700;
+}
+.muro__date {
+  color: #6b7280;
+  font-size: 12px;
+}
+.muro__tag {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #e9d5ff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.muro__card-title {
+  margin: 10px 0 6px;
+  font-size: 18px;
+  color: #111827;
+}
+.muro__card-body {
+  margin: 0;
+  color: #374151;
+  line-height: 1.5;
+  font-size: 14.5px;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .muro__container {
+    grid-template-columns: 1fr;
+  }
+  .muro__title {
+    justify-self: start;
+  }
+  .muro__brand {
+    display: none;
+  }
+}
+
+/* Quita cualquier subrayado de texto en las tarjetas */
+.course-card,
+.card,
+.tarjeta,
+[class*="card"],
+[class*="course"] {
+  text-decoration: none !important;
+}
+
+/* Asegura que los enlaces dentro de la tarjeta no tengan subrayado */
+.course-card a,
+.card a,
+.tarjeta a,
+.course-actions a,
+* a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+/* Si usas <h3>, <h2>, etc. con subrayado por CSS */
+.course-card h1,
+.course-card h2,
+.course-card h3,
+.course-card h4,
+.course-card h5,
+.course-card p,
+.card-title,
+.course-title {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* Quita bordes o sombras que parezcan líneas */
+.course-card,
+.card {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important; /* o el color que uses */
+}
