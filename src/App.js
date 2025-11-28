@@ -18,6 +18,7 @@ import PerfilUsuario from "./pages/PerfilUsuario/PerfilUsuario";
 import Evaluacion from "./pages/Evaluacion/Evaluacion";
 import AcercaDe from "./pages/AcercaDe";
 import PostDetalle from "./pages/MuroInformativo/PostDetalle";
+import GaleriaFotos from "./components/ImageUploadeer";
 
 // HOOK CORREGIDO
 import useAutoLogoutOnBlock from "./hooks/useAutoLogoutOnBlock";
@@ -42,6 +43,7 @@ function AppContent() {
       <Route path="/Evaluacion" element={<Evaluacion />} />
       <Route path="/acerca-de" element={<AcercaDe />} />
       <Route path="/muro/:postId" element={<PostDetalle />} />
+      <Route path="/galeria" element={<GaleriaFotos/>} />
     </Routes>
   );
 }

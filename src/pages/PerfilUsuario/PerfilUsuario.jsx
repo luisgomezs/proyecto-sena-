@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { auth, db } from "../../firebaseConfig"; // 🔧 Ajusta si tu ruta es distinta
+import { auth, db } from "../../firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import {
   collection,
@@ -8,8 +8,11 @@ import {
   onSnapshot,
   doc,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import ImageUploader from "../../components/ImageUploadeer"; // ← IMPORTANTE
 import "./PerfilUsuario.css";
 
 export default function PerfilUsuario() {
@@ -17,12 +20,15 @@ export default function PerfilUsuario() {
   const [mensaje, setMensaje] = useState("");
   const [usuario, setUsuario] = useState(null);
 
-  const [enrolments, setEnrolments] = useState([]); // {userId, courseId, status, progress, ...}
-  const [coursesMap, setCoursesMap] = useState({}); // courseId -> curso
+  const [enrolments, setEnrolments] = useState([]);
+  const [coursesMap, setCoursesMap] = useState({});
+
+  // ====== NUEVOS ESTADOS PARA FOTO ======
+  const [editandoFoto, setEditandoFoto] = useState(false);
+  const [cargandoFoto, setCargandoFoto] = useState(false);
 
   const navigate = useNavigate();
 
-  // 👉 Helper para formatear fechas (admite Timestamp o string ISO)
   const formatoFecha = (valor) => {
     if (!valor) return "—";
     try {
@@ -33,7 +39,6 @@ export default function PerfilUsuario() {
     }
   };
 
-  // 1) Espera al usuario autenticado y suscribe a su documento y a sus enrolments
   useEffect(() => {
     let unsubUserDoc = null;
     let unsubEnrol = null;
@@ -47,7 +52,6 @@ export default function PerfilUsuario() {
         return;
       }
 
-      // Perfil en tiempo real
       const userRef = doc(db, "usuarios", user.uid);
       unsubUserDoc = onSnapshot(
         userRef,
@@ -62,183 +66,180 @@ export default function PerfilUsuario() {
           setLoading(false);
         },
         (err) => {
-          console.error("PerfilUsuario:onSnapshot(usuario) ->", err);
-          setMensaje("Error al obtener datos del usuario.");
+          console.error("Error en perfil:", err);
+          setMensaje("Error al cargar el perfil.");
           setLoading(false);
         }
       );
 
-      // Enrolments del usuario en tiempo real
       const q = query(collection(db, "enrolments"), where("userId", "==", user.uid));
-      unsubEnrol = onSnapshot(
-        q,
-        (snap) => {
-          const rows = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-          setEnrolments(rows);
-        },
-        (err) => {
-          console.error("PerfilUsuario:onSnapshot(enrolments) ->", err);
-        }
-      );
+      unsubEnrol = onSnapshot(q, (snap) => {
+        setEnrolments(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+      });
     });
 
     return () => {
-      if (unsubUserDoc) unsubUserDoc();
-      if (unsubEnrol) unsubEnrol();
+      unsubUserDoc?.();
+      unsubEnrol?.();
       unsubAuth();
     };
   }, []);
 
-  // 2) Cada vez que cambian las inscripciones, trae (una vez) los cursos necesarios
+  // Cursos necesarios
   useEffect(() => {
     const needed = Array.from(new Set(enrolments.map((e) => e.courseId))).filter(
       (id) => id && !coursesMap[id]
     );
     if (!needed.length) return;
 
-    let isActive = true;
-
+    let active = true;
     (async () => {
       const updates = {};
       await Promise.all(
         needed.map(async (id) => {
-          try {
-            const snap = await getDoc(doc(db, "cursos", id));
-            if (snap.exists()) {
-              updates[id] = { id: snap.id, ...snap.data() };
-            } else {
-              updates[id] = { id, nombre: "(Curso no disponible)" };
-            }
-          } catch (e) {
-            console.error("PerfilUsuario:getDoc(curso) ->", e);
-            updates[id] = { id, nombre: "(Error al cargar curso)" };
-          }
+          const snap = await getDoc(doc(db, "cursos", id));
+          updates[id] = snap.exists()
+            ? { id: snap.id, ...snap.data() }
+            : { id, nombre: "(Curso eliminado)" };
         })
       );
-      if (isActive && Object.keys(updates).length) {
-        setCoursesMap((prev) => ({ ...prev, ...updates }));
-      }
+      if (active) setCoursesMap((prev) => ({ ...prev, ...updates }));
     })();
-
-    return () => {
-      isActive = false;
-    };
+    return () => { active = false; };
   }, [enrolments, coursesMap]);
 
-  // 3) Derivados para UI: en progreso, completados, promedio de avance
-  const inProgress = useMemo(
-    () => enrolments.filter((e) => e.status === "en_progreso"),
-    [enrolments]
-  );
-  const completed = useMemo(
-    () => enrolments.filter((e) => e.status === "completado"),
-    [enrolments]
-  );
+  const inProgress = useMemo(() => enrolments.filter((e) => e.status === "en_progreso"), [enrolments]);
+  const completed = useMemo(() => enrolments.filter((e) => e.status === "completado"), [enrolments]);
   const avgProgress = useMemo(() => {
     if (!enrolments.length) return 0;
     const sum = enrolments.reduce((acc, e) => acc + (Number(e.progress) || 0), 0);
     return Math.round(sum / enrolments.length);
   }, [enrolments]);
 
-  // ====== ESTADOS DE UI ======
-  if (loading) return <p className="loading">Cargando información…</p>;
+  // ====== FUNCIÓN PARA GUARDAR NUEVA FOTO ======
+  const handleCambiarFoto = async (url) => {
+    if (!usuario?.id) return;
+    setCargandoFoto(true);
+    try {
+      await updateDoc(doc(db, "usuarios", usuario.id), {
+        fotoEmpleado: url,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "¡Foto actualizada!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      setEditandoFoto(false);
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error", "No se pudo guardar la foto", "error");
+    } finally {
+      setCargandoFoto(false);
+    }
+  };
 
+  if (loading) return <p className="loading">Cargando perfil…</p>;
   if (!usuario) {
     return (
       <main className="perfil">
         <header className="perfil__header">
-          <button className="btn btn--back" onClick={() => navigate("/dashboard")}>
-            ← Volver al Inicio
-          </button>
+          <button className="btn btn--back" onClick={() => navigate("/dashboard")}>← Volver</button>
           <h1>Mi Perfil</h1>
         </header>
-
         <section className="perfil__empty">
-          <p>{mensaje || "No se encontró información del usuario."}</p>
-          <div className="empty__actions">
-            <Link className="btn btn--primary" to="/configuracion">Completar mi perfil</Link>
-            <Link className="btn btn--ghost" to="/dashboard">Ir al dashboard</Link>
-          </div>
+          <p>{mensaje}</p>
+          <Link className="btn btn--primary" to="/dashboard">Ir al Dashboard</Link>
         </section>
       </main>
     );
   }
 
-  // ====== VISTA NORMAL DEL PERFIL (con datos reales) ======
   return (
     <main className="perfil">
       <header className="perfil__header">
         <button className="btn btn--back" onClick={() => navigate("/dashboard")}>
-           Volver al Inicio
+          ← Volver al Inicio
         </button>
         <h1>Mi Perfil</h1>
       </header>
 
       <section className="perfil__content">
-        {/* ===== COLUMNA IZQUIERDA ===== */}
+        {/* COLUMNA IZQUIERDA */}
         <aside className="perfil__left">
           <div className="perfil__card perfil__info">
-            
-            {/* --- INICIO DE LA FOTO --- */}
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '15px' }}>
-              <img 
-                src="/nombre-de-tu-foto.png"  /* ⚠️ IMPORTANTE: Asegúrate de poner aquí la ruta correcta de tu imagen */
-                alt="Foto de Perfil" 
-                style={{ 
-                  width: '150px', 
-                  height: '150px', 
-                  borderRadius: '50%', 
-                  objectFit: 'cover', 
-                  border: '5px solid white', 
-                  boxShadow: '0 4px 10px rgba(0,0,0,0.1)' 
-                }} 
-              />
-            </div>
-            {/* --- FIN DE LA FOTO --- */}
+            {/* ====== FOTO CON BOTÓN DE CAMBIO ====== */}
+            <div className="avatar-container" style={{ position: "relative", display: "inline-block" }}>
+              <div className="avatar">
+                {usuario.fotoEmpleado ? (
+                  <img
+                    src={usuario.fotoEmpleado}
+                    alt="Mi foto"
+                    style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }}
+                  />
+                ) : (
+                  <span>👤</span>
+                )}
+              </div>
 
-            <h2>{usuario.nombre || "Usuario"} {usuario.apellido || ""}</h2>
+              {/* Botón flotante de cámara */}
+              <div
+                onClick={() => setEditandoFoto(true)}
+                style={{
+                  position: "absolute",
+                  bottom: "8px",
+                  right: "8px",
+                  background: "rgba(0,0,0,0.6)",
+                  color: "white",
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
+                  border: "3px solid white",
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  transition: "all 0.3s ease",
+                }}
+                title="Cambiar foto de perfil"
+                onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.1)"}
+                onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+              >
+                +
+              </div>
+
+            </div>
+
+            <h2>{usuario.nombre} {usuario.apellido}</h2>
             <p className="cargo">{usuario.cargo || "Empleado InfoBank"}</p>
             <p className="area">{usuario.areaTrabajo || "—"}</p>
 
             <ul className="info-list">
-              <li>📧 {usuario.email || "—"}</li>
-              <li>🏢 Área: {usuario.areaTrabajo || "—"}</li>
+              <li>Email: {usuario.email}</li>
+              <li>Area: {usuario.areaTrabajo || "—"}</li>
             </ul>
           </div>
 
+          {/* ESTADÍSTICAS */}
           <div className="perfil__card perfil__stats">
-            {/* ... el resto de las estadísticas sigue igual ... */}
             <h3>Estadísticas de Aprendizaje</h3>
             <div className="stats-grid">
-              <div className="stat-item green">
-                <h4>{completed.length}</h4>
-                <p>Completados</p>
-              </div>
-              <div className="stat-item blue">
-                <h4>{inProgress.length}</h4>
-                <p>En Progreso</p>
-              </div>
-              <div className="stat-item orange">
-                <h4>{avgProgress}%</h4>
-                <p>Promedio</p>
-              </div>
-              <div className="stat-item purple">
-                <h4>{enrolments.length}</h4>
-                <p>Total Inscritos</p>
-              </div>
+              <div className="stat-item green"><h4>{completed.length}</h4><p>Completados</p></div>
+              <div className="stat-item blue"><h4>{inProgress.length}</h4><p>En Progreso</p></div>
+              <div className="stat-item orange"><h4>{avgProgress}%</h4><p>Promedio</p></div>
+              <div className="stat-item purple"><h4>{enrolments.length}</h4><p>Total Inscritos</p></div>
             </div>
           </div>
         </aside>
 
-        {/* ===== COLUMNA DERECHA ===== */}
+        {/* COLUMNA DERECHA */}
         <section className="perfil__right">
           <div className="perfil__card">
-            <h3>📘 Cursos en Progreso</h3>
-
-            {inProgress.length === 0 && (
-              <p className="muted">Aún no tienes cursos en progreso.</p>
-            )}
-
+            <h3>Cursos en Progreso</h3>
+            {inProgress.length === 0 && <p className="muted">Aún no tienes cursos en progreso.</p>}
             {inProgress.map((e) => {
               const curso = coursesMap[e.courseId] || {};
               const w = Math.max(0, Math.min(100, Number(e.progress) || 0));
@@ -248,24 +249,16 @@ export default function PerfilUsuario() {
                     <strong>{curso.nombre || e.courseId}</strong>
                     <span className="badge">{w}%</span>
                   </div>
-                  <div className="bar">
-                    <div className="fill" style={{ width: `${w}%` }} />
-                  </div>
-                  <div className="progress-actions">
-                    <Link to={`/curso/${e.courseId}`} className="btn btn--primary">Continuar</Link>
-                  </div>
+                  <div className="bar"><div className="fill" style={{ width: `${w}%` }} /></div>
+                  <Link to={`/curso/${e.courseId}`} className="btn btn--primary">Continuar</Link>
                 </div>
               );
             })}
           </div>
 
           <div className="perfil__card">
-            <h3>✅ Cursos Completados</h3>
-
-            {completed.length === 0 && (
-              <p className="muted">Aún no has completado cursos.</p>
-            )}
-
+            <h3>Cursos Completados</h3>
+            {completed.length === 0 && <p className="muted">Aún no has completado cursos.</p>}
             <ul className="course-list">
               {completed.map((e) => {
                 const curso = coursesMap[e.courseId] || {};
@@ -273,9 +266,7 @@ export default function PerfilUsuario() {
                   <li key={e.id}>
                     <span>{curso.nombre || e.courseId}</span>
                     {e.certificateUrl ? (
-                      <a className="badge" href={e.certificateUrl} target="_blank" rel="noreferrer">
-                        Certificado
-                      </a>
+                      <a className="badge" href={e.certificateUrl} target="_blank" rel="noreferrer">Certificado</a>
                     ) : (
                       <span className="badge">100%</span>
                     )}
@@ -284,10 +275,55 @@ export default function PerfilUsuario() {
               })}
             </ul>
           </div>
-
-          
         </section>
       </section>
+
+      {/* ====== MODAL PARA CAMBIAR FOTO ====== */}
+      {editandoFoto && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.75)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1000,
+          }}
+          onClick={() => setEditandoFoto(false)}
+        >
+          <div
+            style={{
+              background: "white",
+              padding: "2rem",
+              borderRadius: "16px",
+              maxWidth: "90%",
+              width: "420px",
+              textAlign: "center",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 style={{ margin: "0 0 1.5rem" }}>Cambiar foto de perfil</h3>
+
+            <ImageUploader
+              currentImage={usuario.fotoEmpleado || ""}
+              onImageUpload={handleCambiarFoto}
+              disabled={cargandoFoto}
+            />
+
+            {cargandoFoto && <p style={{ marginTop: "1rem" }}>Guardando foto...</p>}
+
+            <button
+              className="btn btn--cancel"
+              onClick={() => setEditandoFoto(false)}
+              style={{ marginTop: "1rem" }}
+              disabled={cargandoFoto}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

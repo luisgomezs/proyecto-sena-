@@ -357,3 +357,43 @@ body.dark .bar {
   background: #1f2937;
   border-color: #263245;
 }
+.perfil__info .avatar {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f0f0f0;
+  border: 4px solid #007bff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.perfil__info .avatar span {
+  font-size: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.avatar{
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  border: 4px solid white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatar span{
+  font-size: 60px;
+}

@@ -19,6 +19,7 @@ import esLocale from '@fullcalendar/core/locales/es';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import ImageUploader from "../../components/ImageUploadeer";
 
 
 
@@ -54,6 +55,7 @@ export default function AdminDashboard() {
   const [nuevoRol, setNuevoRol] = useState("usuario");
   const [registrando, setRegistrando] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
+  const [fotoEmpleado, setFotoEmpleado] = useState("");
 
   // ===== Mensajes / Notificaciones
   const [mensajes, setMensajes] = useState([]);
@@ -617,6 +619,7 @@ const usuariosFiltrados = usuarios.filter((u) => {
         cursosInscritos: 0,
         ultimoAcceso: null,
         createdAt: serverTimestamp(),
+        fotoEmpleado: fotoEmpleado || "",
       });
 
       // 3. ✅ SINCRO: Creamos en "roles" para el Login y las Reglas
@@ -641,6 +644,7 @@ const usuariosFiltrados = usuarios.filter((u) => {
       setNuevoPassword("");
       setConfirmPassword("");
       setNuevoRol("usuario"); // Reseteas el rol a 'usuario'
+      setFotoEmpleado("");
     } catch (err) {
       // Tu manejo de errores original
       if (err.code === 'auth/email-already-in-use') {
@@ -756,6 +760,7 @@ const usuariosFiltrados = usuarios.filter((u) => {
       areaTrabajo: editingUser.areaTrabajo || "",
       rol: editingUser.rol,
       estado: editingUser.estado,
+      fotoEmpleado: editingUser.fotoEmpleado || "",
     });
     setEditingUser(null);
     Swal.fire("✅ Actualizado", "", "success");
@@ -1200,6 +1205,13 @@ const usuariosFiltrados = usuarios.filter((u) => {
                 </select>
               </div>
             </div>
+            <div style={{ margin: "20px 0" }}>
+                    <label>Foto del empleado (opcional)</label>
+                    <ImageUploader
+                      currentImage={fotoEmpleado}
+                      onImageUpload={(url) => setFotoEmpleado(url)}
+                    />
+                  </div>
             <div className="field">
               <label>Contraseña</label>
               <div className="input-with-icon">
@@ -1238,6 +1250,13 @@ const usuariosFiltrados = usuarios.filter((u) => {
                   <option value="usuario">Usuario</option>
                   <option value="admin">Administrador</option>
                 </select>
+                <div style={{ margin: "20px 0" }}>
+                    <label>Foto del empleado (opcional)</label>
+                    <ImageUploader
+                      currentImage={fotoEmpleado}
+                      onImageUpload={(url) => setFotoEmpleado(url)}
+                    />
+                  </div>
                 <label>Estado</label>
                 <select name="estado" value={editingUser.estado || "Activo"} onChange={handleEditChange} required>
                   <option value="Activo">Activo</option>
