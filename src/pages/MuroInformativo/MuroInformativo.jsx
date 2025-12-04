@@ -178,7 +178,7 @@ export default function MuroInformativo() {
               <Link to={`/muro/${p.id}`} key={p.id} className="muro__card-link">
                 <article className="muro__card">
                   <div className="muro__card-meta">
-                    <div className="muro__avatar" style={{ backgroundColor: "#7c3aed" }}>
+                    <div className="muro__avatar" style={{ backgroundColor: "#e2e2ecff" }}>
                       {(p.autor || "A")[0].toUpperCase()}
                     </div>
                     <div className="muro__meta-txt">
@@ -249,7 +249,7 @@ export default function MuroInformativo() {
 // Icono (sin cambios)
 function MuroIconTop() {
   const { isDarkMode } = useTheme();
-  const iconColor = isDarkMode ? "#c4b5fd" : "#7c3aed";
+  const iconColor = isDarkMode ? "#c4b5fd" : "#d5cee0ff";
 
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill={iconColor} aria-hidden="true">

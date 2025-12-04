@@ -121,3 +121,32 @@ html, body, #root {
 .animated.shake {
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite;
 }
+/* --- Estilos para el campo de contraseña con ojo --- */
+
+.password-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 15px; /* Ajusta según el espacio que desees entre inputs */
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 45px; /* Espacio extra a la derecha para que el texto no toque el icono */
+  box-sizing: border-box; /* Asegura que el padding no rompa el ancho */
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6b7280; /* Gris suave */
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.password-toggle-icon:hover {
+  color: #007bff; /* Cambia a azul al pasar el mouse */
+}

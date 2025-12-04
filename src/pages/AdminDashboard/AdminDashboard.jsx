@@ -56,6 +56,23 @@ export default function AdminDashboard() {
   const [registrando, setRegistrando] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [fotoEmpleado, setFotoEmpleado] = useState("");
+  const formatoUltimoAcceso = (timestamp) => {
+  if (!timestamp || !timestamp.toDate) {
+    return "Nunca";
+  }
+  
+  // Asumiendo que es un objeto Timestamp de Firebase con el método toDate()
+  const date = timestamp.toDate();
+  
+  // Opciones de formato para hora local (ej. "03/12/2025, 18:52")
+  return date.toLocaleString("es-CO", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
 
   // ===== Mensajes / Notificaciones
   const [mensajes, setMensajes] = useState([]);
@@ -621,6 +638,7 @@ const usuariosFiltrados = usuarios.filter((u) => {
         createdAt: serverTimestamp(),
         fotoEmpleado: fotoEmpleado || "",
       });
+      
 
       // 3. ✅ SINCRO: Creamos en "roles" para el Login y las Reglas
       await setDoc(doc(db, "roles", user.uid), {

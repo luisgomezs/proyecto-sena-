@@ -3,58 +3,48 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   sendPasswordResetEmail,
-  signOut, // Importamos signOut para la lógica de bloqueo
+  signOut,
 } from "firebase/auth";
-import { auth, db } from "../../firebaseConfig"; // Asegúrate de que la ruta sea correcta
-import { useNavigate, Link } from "react-router-dom";
+import { auth, db } from "../../firebaseConfig";
+import { useNavigate } from "react-router-dom"; // Link no se usaba, lo quité para limpiar
 import { doc, getDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
 import infobankLogo from "../../assets/infobank-logo.png";
 import "../../App.css";
 
+// ✅ Importamos los iconos del ojito
+import { FaEye, FaEyeSlash } from "react-icons/fa"; 
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  // ✅ Nuevo estado para controlar la visibilidad de la contraseña
+  const [showPassword, setShowPassword] = useState(false);
+
   const [mensaje, setMensaje] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // --- Nueva Función Reutilizable ---
-  // Esta función revisa el ROL y el ESTADO de un usuario
-  // buscando en la colección "usuarios"
   const checkUserRoleAndStatus = async (user) => {
     try {
-      // ✅ CORRECCIÓN: Apuntamos a "usuarios" en lugar de "roles"
       const userDocRef = doc(db, "usuarios", user.uid);
       const userDocSnap = await getDoc(userDocRef);
 
       if (!userDocSnap.exists()) {
-        // Si no existe el documento del usuario, no tiene permisos
         await signOut(auth);
-        Swal.fire(
-          "Error",
-          "No tienes permisos asignados o tu usuario no existe.",
-          "error"
-        );
+        Swal.fire("Error", "No tienes permisos asignados o tu usuario no existe.", "error");
         return;
       }
 
       const userData = userDocSnap.data();
 
-      // --- CAPA 1: Lógica de Bloqueo ---
-      // Comprobamos el campo "estado" (en minúsculas por si acaso)
       if (userData.estado?.toLowerCase() === "bloqueado") {
-        await signOut(auth); // Cerramos la sesión
-        Swal.fire(
-          "Acceso Denegado",
-          "Tu cuenta ha sido bloqueada. Contacta al administrador.",
-          "error"
-        );
-        return; // Detenemos la ejecución
+        await signOut(auth);
+        Swal.fire("Acceso Denegado", "Tu cuenta ha sido bloqueada. Contacta al administrador.", "error");
+        return;
       }
-      // --- Fin de Lógica de Bloqueo ---
 
-      // Si pasa el chequeo, redirigimos según el rol
       if (userData.rol === "admin") {
         navigate("/admin");
       } else {
@@ -62,36 +52,26 @@ export default function Login() {
       }
     } catch (err) {
       console.error("Error al obtener el rol/estado:", err);
-      // Si hay un error de permisos leyendo el documento, lo expulsamos
       await signOut(auth);
     }
   };
 
-  // ✅ Redirección automática (usa la nueva función)
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Si hay sesión, chequeamos su rol y estado
         await checkUserRoleAndStatus(user);
       }
     });
     return () => unsubscribe();
   }, [navigate]);
 
-  // ✅ Inicio de sesión (usa la nueva función)
   const handleLogin = async (e) => {
     e.preventDefault();
     setMensaje("");
     setLoading(true);
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      // Después de iniciar sesión, chequeamos su rol y estado
       await checkUserRoleAndStatus(user);
     } catch (error) {
       console.error(error);
@@ -101,7 +81,6 @@ export default function Login() {
     }
   };
 
-  // ✅ Recuperar contraseña (sin cambios)
   const handleOlvidarContrasena = async () => {
     const { value: correo } = await Swal.fire({
       title: "🔑 Recuperar contraseña",
@@ -114,26 +93,16 @@ export default function Login() {
       confirmButtonColor: "#007bff",
       cancelButtonColor: "#6b7280",
       inputValidator: (value) => {
-        if (!value) {
-          return "Por favor ingresa un correo válido.";
-        }
+        if (!value) return "Por favor ingresa un correo válido.";
       },
     });
 
     if (correo) {
       try {
         await sendPasswordResetEmail(auth, correo);
-        Swal.fire(
-          "✅ Enlace enviado",
-          `Se ha enviado un enlace de recuperación a ${correo}.`,
-          "success"
-        );
+        Swal.fire("✅ Enlace enviado", `Se ha enviado un enlace de recuperación a ${correo}.`, "success");
       } catch (error) {
-        Swal.fire(
-          "❌ Error",
-          "No se pudo enviar el correo. Verifica que el correo esté registrado.",
-          "error"
-        );
+        Swal.fire("❌ Error", "No se pudo enviar el correo. Verifica que el correo esté registrado.", "error");
       }
     }
   };
@@ -152,15 +121,36 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
 
-
+          {/* ✅ CONTENEDOR RELATIVO PARA EL INPUT DE PASSWORD */}
+          <div style={{ position: "relative", width: "100%" }}>
+            <input
+              // ✅ Cambiamos el tipo dinámicamente
+              type={showPassword ? "text" : "password"} 
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{ width: "100%", paddingRight: "40px" }} // padding extra para que el texto no toque el icono
+            />
+            
+            {/* ✅ BOTÓN DEL ICONO (OJITO) */}
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                color: "#6b7280", // Un gris suave
+                display: "flex",
+                alignItems: "center"
+              }}
+            >
+              {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+            </span>
+          </div>
 
           <button type="submit" disabled={loading}>
             {loading ? "Ingresando..." : "Ingresar"}
@@ -171,9 +161,7 @@ export default function Login() {
         <p className="forgot-password" onClick={handleOlvidarContrasena}>
           ¿Olvidaste tu contraseña?
         </p>
-
       </div>
     </div>
   );
 }
-

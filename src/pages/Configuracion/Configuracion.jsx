@@ -100,12 +100,7 @@ export default function Configuracion() {
           🧍 Perfil
         </button>
         
-        <button
-          className={`tab-btn ${tab === "apariencia" ? "active" : ""}`}
-          onClick={() => setTab("apariencia")}
-        >
-          💡 Apariencia
-        </button>
+        
       </div>
 
        {/* ===== PERFIL ===== */}
@@ -184,36 +179,7 @@ export default function Configuracion() {
         </section>
       )}
 
-      {/* ===== APARIENCIA (MODIFICADO) ===== */}
-      {tab === "apariencia" && (
-        <section className="apariencia">
-          <h3>Preferencias de Apariencia</h3>
-          <div className="notif-item">
-            <div>
-              <strong>Modo Oscuro</strong>
-              <p>
-                Cambia la apariencia de la interfaz a un tema oscuro. Ideal
-                para entornos con poca luz.
-              </p>
-            </div>
-            <label className="switch">
-              <input
-                type="checkbox"
-                // ✅ 6. Usamos el estado GLOBAL
-                checked={isDarkMode}
-                // ✅ 7. Usamos la función GLOBAL
-                onChange={toggleTheme}
-              />
-              <span className="slider round"></span>
-            </label>
-          </div>
-          <p className="info">
-            🌙 El modo oscuro reduce la fatiga visual y ahorra batería en
-            pantallas OLED.
-          </p>
-          {/* Puedes añadir más opciones de apariencia aquí */}
-        </section>
-      )}
+      
     </div> // Cierre del div principal
   );
 }
